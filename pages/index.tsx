@@ -2,8 +2,42 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
+import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core'
+import { connector } from '../config/web3'
+import { useCallback, useEffect, useState } from 'react'
+import useTruncatedAddress from '../hooks/useTruncatedAddress'
 
 const Home: NextPage = () => {
+  const [balance, setBalance] = useState('')
+  const { active, activate, account, deactivate, library, error } = useWeb3React()
+
+  const isUnsupportedChain = error instanceof UnsupportedChainIdError
+
+  const connect = useCallback(() => {
+    activate(connector)
+    localStorage.setItem('PreviouslyConnected', 'true')
+  }, [activate])
+
+  const disconnect = () => {
+    deactivate()
+    localStorage.removeItem('PreviouslyConnected')
+  }
+
+  const getBalance = useCallback(async () => {
+    const toSet = await library.eth.getBalance(account)
+    setBalance((toSet / 1e18).toFixed(2))
+  }, [library?.eth, account])
+
+  useEffect(() => {
+    if (active) getBalance()
+  }, [active, getBalance])
+
+  useEffect(() => {
+    if (localStorage.getItem('PreviouslyConnected') === 'true') connect()
+  }, [connect])
+
+  const truncatedAddress = useTruncatedAddress(account)
+
   return (
     <div className={styles.container}>
       <Head>
@@ -18,16 +52,21 @@ const Home: NextPage = () => {
         </h1>
 
         <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
+          {active
+            ? (
+              <div>
+               <span>Address:  {truncatedAddress}</span>
+               <span>Balance:  {balance}</span>
+               <button onClick={disconnect}>Desconnect</button>
+              </div>
+              )
+            : (
+              <div>
+                <span>Wallet desconectado</span>
+                <button disabled={isUnsupportedChain} onClick={connect}> {isUnsupportedChain ? 'Red no soportada' : 'Conectar wallet'}</button>
+              </div>
+              )
+          }
         </div>
       </main>
 

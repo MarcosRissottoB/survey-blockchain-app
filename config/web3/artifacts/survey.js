@@ -1,4 +1,4 @@
-const SurveyArtifact = {
+const AllInNFTArtifact = {
   address: {
     4: '0xA6CD94b81708d4f0c9CfCDe7F76107fbdB30C18D'
   },
@@ -7,7 +7,7 @@ const SurveyArtifact = {
       inputs: [
         {
           internalType: 'uint256',
-          name: '_cooldownSeconds',
+          name: '_maxSupply',
           type: 'uint256'
         }
       ],
@@ -26,13 +26,13 @@ const SurveyArtifact = {
         {
           indexed: true,
           internalType: 'address',
-          name: 'spender',
+          name: 'approved',
           type: 'address'
         },
         {
-          indexed: false,
+          indexed: true,
           internalType: 'uint256',
-          name: 'value',
+          name: 'tokenId',
           type: 'uint256'
         }
       ],
@@ -45,17 +45,23 @@ const SurveyArtifact = {
         {
           indexed: true,
           internalType: 'address',
-          name: 'previousOwner',
+          name: 'owner',
           type: 'address'
         },
         {
           indexed: true,
           internalType: 'address',
-          name: 'newOwner',
+          name: 'operator',
           type: 'address'
+        },
+        {
+          indexed: false,
+          internalType: 'bool',
+          name: 'approved',
+          type: 'bool'
         }
       ],
-      name: 'OwnershipTransferred',
+      name: 'ApprovalForAll',
       type: 'event'
     },
     {
@@ -74,9 +80,9 @@ const SurveyArtifact = {
           type: 'address'
         },
         {
-          indexed: false,
+          indexed: true,
           internalType: 'uint256',
-          name: 'value',
+          name: 'tokenId',
           type: 'uint256'
         }
       ],
@@ -87,81 +93,17 @@ const SurveyArtifact = {
       inputs: [
         {
           internalType: 'address',
-          name: 'owner',
-          type: 'address'
-        },
-        {
-          internalType: 'address',
-          name: 'spender',
-          type: 'address'
-        }
-      ],
-      name: 'allowance',
-      outputs: [
-        {
-          internalType: 'uint256',
-          name: '',
-          type: 'uint256'
-        }
-      ],
-      stateMutability: 'view',
-      type: 'function'
-    },
-    {
-      inputs: [
-        {
-          internalType: 'address',
-          name: '',
+          name: 'to',
           type: 'address'
         },
         {
           internalType: 'uint256',
-          name: '',
-          type: 'uint256'
-        },
-        {
-          internalType: 'uint256',
-          name: '',
-          type: 'uint256'
-        },
-        {
-          internalType: 'uint256',
-          name: '',
-          type: 'uint256'
-        }
-      ],
-      name: 'answers',
-      outputs: [
-        {
-          internalType: 'uint256',
-          name: '',
-          type: 'uint256'
-        }
-      ],
-      stateMutability: 'view',
-      type: 'function'
-    },
-    {
-      inputs: [
-        {
-          internalType: 'address',
-          name: 'spender',
-          type: 'address'
-        },
-        {
-          internalType: 'uint256',
-          name: 'amount',
+          name: 'tokenId',
           type: 'uint256'
         }
       ],
       name: 'approve',
-      outputs: [
-        {
-          internalType: 'bool',
-          name: '',
-          type: 'bool'
-        }
-      ],
+      outputs: [],
       stateMutability: 'nonpayable',
       type: 'function'
     },
@@ -169,7 +111,7 @@ const SurveyArtifact = {
       inputs: [
         {
           internalType: 'address',
-          name: 'account',
+          name: 'owner',
           type: 'address'
         }
       ],
@@ -185,8 +127,19 @@ const SurveyArtifact = {
       type: 'function'
     },
     {
-      inputs: [],
-      name: 'cooldownSeconds',
+      inputs: [
+        {
+          internalType: 'uint256',
+          name: '_tokenId',
+          type: 'uint256'
+        },
+        {
+          internalType: 'address',
+          name: '_minter',
+          type: 'address'
+        }
+      ],
+      name: 'deterministicPseudoRandomDNA',
       outputs: [
         {
           internalType: 'uint256',
@@ -194,17 +147,289 @@ const SurveyArtifact = {
           type: 'uint256'
         }
       ],
+      stateMutability: 'pure',
+      type: 'function'
+    },
+    {
+      inputs: [
+        {
+          internalType: 'uint256',
+          name: '_dna',
+          type: 'uint256'
+        }
+      ],
+      name: 'getAccessoriesType',
+      outputs: [
+        {
+          internalType: 'string',
+          name: '',
+          type: 'string'
+        }
+      ],
       stateMutability: 'view',
       type: 'function'
     },
     {
-      inputs: [],
-      name: 'decimals',
+      inputs: [
+        {
+          internalType: 'uint256',
+          name: 'tokenId',
+          type: 'uint256'
+        }
+      ],
+      name: 'getApproved',
       outputs: [
         {
-          internalType: 'uint8',
+          internalType: 'address',
           name: '',
-          type: 'uint8'
+          type: 'address'
+        }
+      ],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [
+        {
+          internalType: 'uint256',
+          name: '_dna',
+          type: 'uint256'
+        }
+      ],
+      name: 'getClotheColor',
+      outputs: [
+        {
+          internalType: 'string',
+          name: '',
+          type: 'string'
+        }
+      ],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [
+        {
+          internalType: 'uint256',
+          name: '_dna',
+          type: 'uint256'
+        }
+      ],
+      name: 'getClotheType',
+      outputs: [
+        {
+          internalType: 'string',
+          name: '',
+          type: 'string'
+        }
+      ],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [
+        {
+          internalType: 'uint256',
+          name: '_dna',
+          type: 'uint256'
+        }
+      ],
+      name: 'getEyeBrowType',
+      outputs: [
+        {
+          internalType: 'string',
+          name: '',
+          type: 'string'
+        }
+      ],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [
+        {
+          internalType: 'uint256',
+          name: '_dna',
+          type: 'uint256'
+        }
+      ],
+      name: 'getEyeType',
+      outputs: [
+        {
+          internalType: 'string',
+          name: '',
+          type: 'string'
+        }
+      ],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [
+        {
+          internalType: 'uint256',
+          name: '_dna',
+          type: 'uint256'
+        }
+      ],
+      name: 'getFacialHairColor',
+      outputs: [
+        {
+          internalType: 'string',
+          name: '',
+          type: 'string'
+        }
+      ],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [
+        {
+          internalType: 'uint256',
+          name: '_dna',
+          type: 'uint256'
+        }
+      ],
+      name: 'getFacialHairType',
+      outputs: [
+        {
+          internalType: 'string',
+          name: '',
+          type: 'string'
+        }
+      ],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [
+        {
+          internalType: 'uint256',
+          name: '_dna',
+          type: 'uint256'
+        }
+      ],
+      name: 'getGraphicType',
+      outputs: [
+        {
+          internalType: 'string',
+          name: '',
+          type: 'string'
+        }
+      ],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [
+        {
+          internalType: 'uint256',
+          name: '_dna',
+          type: 'uint256'
+        }
+      ],
+      name: 'getHairColor',
+      outputs: [
+        {
+          internalType: 'string',
+          name: '',
+          type: 'string'
+        }
+      ],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [
+        {
+          internalType: 'uint256',
+          name: '_dna',
+          type: 'uint256'
+        }
+      ],
+      name: 'getHatColor',
+      outputs: [
+        {
+          internalType: 'string',
+          name: '',
+          type: 'string'
+        }
+      ],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [
+        {
+          internalType: 'uint256',
+          name: '_dna',
+          type: 'uint256'
+        }
+      ],
+      name: 'getMouthType',
+      outputs: [
+        {
+          internalType: 'string',
+          name: '',
+          type: 'string'
+        }
+      ],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [
+        {
+          internalType: 'uint256',
+          name: '_dna',
+          type: 'uint256'
+        }
+      ],
+      name: 'getSkinColor',
+      outputs: [
+        {
+          internalType: 'string',
+          name: '',
+          type: 'string'
+        }
+      ],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [
+        {
+          internalType: 'uint256',
+          name: '_dna',
+          type: 'uint256'
+        }
+      ],
+      name: 'getTopType',
+      outputs: [
+        {
+          internalType: 'string',
+          name: '',
+          type: 'string'
+        }
+      ],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [
+        {
+          internalType: 'uint256',
+          name: '_dna',
+          type: 'uint256'
+        }
+      ],
+      name: 'imageByDNA',
+      outputs: [
+        {
+          internalType: 'string',
+          name: '',
+          type: 'string'
         }
       ],
       stateMutability: 'view',
@@ -214,16 +439,16 @@ const SurveyArtifact = {
       inputs: [
         {
           internalType: 'address',
-          name: 'spender',
+          name: 'owner',
           type: 'address'
         },
         {
-          internalType: 'uint256',
-          name: 'subtractedValue',
-          type: 'uint256'
+          internalType: 'address',
+          name: 'operator',
+          type: 'address'
         }
       ],
-      name: 'decreaseAllowance',
+      name: 'isApprovedForAll',
       outputs: [
         {
           internalType: 'bool',
@@ -231,42 +456,12 @@ const SurveyArtifact = {
           type: 'bool'
         }
       ],
-      stateMutability: 'nonpayable',
+      stateMutability: 'view',
       type: 'function'
     },
     {
-      inputs: [
-        {
-          internalType: 'address',
-          name: 'spender',
-          type: 'address'
-        },
-        {
-          internalType: 'uint256',
-          name: 'addedValue',
-          type: 'uint256'
-        }
-      ],
-      name: 'increaseAllowance',
-      outputs: [
-        {
-          internalType: 'bool',
-          name: '',
-          type: 'bool'
-        }
-      ],
-      stateMutability: 'nonpayable',
-      type: 'function'
-    },
-    {
-      inputs: [
-        {
-          internalType: 'address',
-          name: '',
-          type: 'address'
-        }
-      ],
-      name: 'lastSubmittal',
+      inputs: [],
+      name: 'maxSupply',
       outputs: [
         {
           internalType: 'uint256',
@@ -275,6 +470,13 @@ const SurveyArtifact = {
         }
       ],
       stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [],
+      name: 'mint',
+      outputs: [],
+      stateMutability: 'nonpayable',
       type: 'function'
     },
     {
@@ -291,8 +493,14 @@ const SurveyArtifact = {
       type: 'function'
     },
     {
-      inputs: [],
-      name: 'owner',
+      inputs: [
+        {
+          internalType: 'uint256',
+          name: 'tokenId',
+          type: 'uint256'
+        }
+      ],
+      name: 'ownerOf',
       outputs: [
         {
           internalType: 'address',
@@ -304,21 +512,24 @@ const SurveyArtifact = {
       type: 'function'
     },
     {
-      inputs: [],
-      name: 'renounceOwnership',
-      outputs: [],
-      stateMutability: 'nonpayable',
-      type: 'function'
-    },
-    {
       inputs: [
         {
+          internalType: 'address',
+          name: 'from',
+          type: 'address'
+        },
+        {
+          internalType: 'address',
+          name: 'to',
+          type: 'address'
+        },
+        {
           internalType: 'uint256',
-          name: '_cooldownSeconds',
+          name: 'tokenId',
           type: 'uint256'
         }
       ],
-      name: 'setCooldown',
+      name: 'safeTransferFrom',
       outputs: [],
       stateMutability: 'nonpayable',
       type: 'function'
@@ -326,24 +537,152 @@ const SurveyArtifact = {
     {
       inputs: [
         {
+          internalType: 'address',
+          name: 'from',
+          type: 'address'
+        },
+        {
+          internalType: 'address',
+          name: 'to',
+          type: 'address'
+        },
+        {
           internalType: 'uint256',
-          name: '_surveyId',
+          name: 'tokenId',
           type: 'uint256'
         },
         {
-          internalType: 'uint256[]',
-          name: '_answerIds',
-          type: 'uint256[]'
+          internalType: 'bytes',
+          name: '_data',
+          type: 'bytes'
         }
       ],
-      name: 'submit',
+      name: 'safeTransferFrom',
       outputs: [],
       stateMutability: 'nonpayable',
+      type: 'function'
+    },
+    {
+      inputs: [
+        {
+          internalType: 'address',
+          name: 'operator',
+          type: 'address'
+        },
+        {
+          internalType: 'bool',
+          name: 'approved',
+          type: 'bool'
+        }
+      ],
+      name: 'setApprovalForAll',
+      outputs: [],
+      stateMutability: 'nonpayable',
+      type: 'function'
+    },
+    {
+      inputs: [
+        {
+          internalType: 'bytes4',
+          name: 'interfaceId',
+          type: 'bytes4'
+        }
+      ],
+      name: 'supportsInterface',
+      outputs: [
+        {
+          internalType: 'bool',
+          name: '',
+          type: 'bool'
+        }
+      ],
+      stateMutability: 'view',
       type: 'function'
     },
     {
       inputs: [],
       name: 'symbol',
+      outputs: [
+        {
+          internalType: 'string',
+          name: '',
+          type: 'string'
+        }
+      ],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [
+        {
+          internalType: 'uint256',
+          name: 'index',
+          type: 'uint256'
+        }
+      ],
+      name: 'tokenByIndex',
+      outputs: [
+        {
+          internalType: 'uint256',
+          name: '',
+          type: 'uint256'
+        }
+      ],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [
+        {
+          internalType: 'uint256',
+          name: '',
+          type: 'uint256'
+        }
+      ],
+      name: 'tokenDNA',
+      outputs: [
+        {
+          internalType: 'uint256',
+          name: '',
+          type: 'uint256'
+        }
+      ],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [
+        {
+          internalType: 'address',
+          name: 'owner',
+          type: 'address'
+        },
+        {
+          internalType: 'uint256',
+          name: 'index',
+          type: 'uint256'
+        }
+      ],
+      name: 'tokenOfOwnerByIndex',
+      outputs: [
+        {
+          internalType: 'uint256',
+          name: '',
+          type: 'uint256'
+        }
+      ],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [
+        {
+          internalType: 'uint256',
+          name: 'tokenId',
+          type: 'uint256'
+        }
+      ],
+      name: 'tokenURI',
       outputs: [
         {
           internalType: 'string',
@@ -371,64 +710,21 @@ const SurveyArtifact = {
       inputs: [
         {
           internalType: 'address',
-          name: 'recipient',
-          type: 'address'
-        },
-        {
-          internalType: 'uint256',
-          name: 'amount',
-          type: 'uint256'
-        }
-      ],
-      name: 'transfer',
-      outputs: [
-        {
-          internalType: 'bool',
-          name: '',
-          type: 'bool'
-        }
-      ],
-      stateMutability: 'nonpayable',
-      type: 'function'
-    },
-    {
-      inputs: [
-        {
-          internalType: 'address',
-          name: 'sender',
+          name: 'from',
           type: 'address'
         },
         {
           internalType: 'address',
-          name: 'recipient',
+          name: 'to',
           type: 'address'
         },
         {
           internalType: 'uint256',
-          name: 'amount',
+          name: 'tokenId',
           type: 'uint256'
         }
       ],
       name: 'transferFrom',
-      outputs: [
-        {
-          internalType: 'bool',
-          name: '',
-          type: 'bool'
-        }
-      ],
-      stateMutability: 'nonpayable',
-      type: 'function'
-    },
-    {
-      inputs: [
-        {
-          internalType: 'address',
-          name: 'newOwner',
-          type: 'address'
-        }
-      ],
-      name: 'transferOwnership',
       outputs: [],
       stateMutability: 'nonpayable',
       type: 'function'
@@ -436,4 +732,4 @@ const SurveyArtifact = {
   ]
 }
 
-export default SurveyArtifact
+export default AllInNFTArtifact

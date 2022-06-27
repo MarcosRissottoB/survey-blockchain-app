@@ -3,7 +3,7 @@ import { InjectedConnector } from '@web3-react/injected-connector'
 
 const connector = new InjectedConnector({
   supportedChainIds: [
-    3 // Ropsten
+    4 // Rinkeby
   ]
 })
 
@@ -12,3 +12,5 @@ const getLibrary = (provider) => {
 }
 
 export { connector, getLibrary }
+
+//    3 // Ropsten
